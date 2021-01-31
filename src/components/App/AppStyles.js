@@ -6,10 +6,7 @@ const Container = styled.div`
   margin: 30px auto;
   padding: 15px;
   text-align: center;
-  border-radius: 30px;
-
-  box-shadow: var(--boxShadow);
-  transition: box-shadow 500ms var(--timingFunction);
+  border-radius: 10px;
 `;
 
 const MainTitle = styled.h1`
