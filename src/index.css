@@ -1,0 +1,43 @@
+:root {
+  --bgColorContainer: #dfdfc9d8;
+  --primaryTextColor: #3f3f3f;
+  --titleColor: #080808;
+  --boxShadow: 8px 8px 14px 0px rgba(0, 0, 0, 0.7);
+  --timingFunction: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+  line-height: 1.5;
+  color: var(--primaryTextColor);
+}
+
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
