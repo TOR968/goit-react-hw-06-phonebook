@@ -2,7 +2,6 @@
   --bgColorContainer: #dfdfc9d8;
   --primaryTextColor: #3f3f3f;
   --titleColor: #080808;
-  --timingFunction: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
