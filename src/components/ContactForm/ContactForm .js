@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
-import styles from './ContactForm.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from '../../redux/phonebook/phonebook-action';
+import { getContacts } from '../../redux/phonebook/phonebook-selectors';
+import { Form, LabelForm, InputForm, Button } from './ContactFormStyles';
 
-import uuid from 'react-uuid';
-
-function ContactForm({ addContact }) {
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const items = useSelector(getContacts);
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const changeHandler = e => {
-    const { name, value } = e.target;
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
     switch (name) {
       case 'name':
         setName(value);
@@ -24,14 +26,21 @@ function ContactForm({ addContact }) {
     }
   };
 
-  const submitHandler = e => {
-    e.preventDefault();
-    const contact = {
-      id: uuid(),
-      name: name,
-      number: number,
-    };
-    addContact(contact);
+  const checkingForExistenceOfSuchName = verifiableName => {
+    const handleName = verifiableName.toLowerCase();
+    return items.find(({ name }) => name.toLowerCase() === handleName);
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const repeatName = checkingForExistenceOfSuchName(name);
+
+    if (repeatName) {
+      alert(`${name} is already in contact`);
+    } else {
+      const newContact = { name, number };
+      dispatch(addContact(newContact));
+    }
 
     reset();
   };
@@ -42,38 +51,33 @@ function ContactForm({ addContact }) {
   };
 
   return (
-    <form onSubmit={submitHandler} className={styles.contactForm}>
-      <label htmlFor="nameInput">
-        Name:
-        <input
+    <Form onSubmit={handleSubmit}>
+      <LabelForm>
+        Name
+        <InputForm
+          onChange={handleChange}
           type="text"
-          name="name"
+          name={'name'}
+          placeholder="Enter name"
           value={name}
-          placeholder="enter name..."
-          onChange={changeHandler}
-          id="nameInput"
+          required
         />
-      </label>
-
-      <label htmlFor="numberInput">
-        Number:
-        <input
+      </LabelForm>
+      <LabelForm>
+        Number
+        <InputForm
+          onChange={handleChange}
           type="tel"
-          name="number"
+          name={'number'}
+          placeholder="Enter number"
           value={number}
-          placeholder="enter number..."
-          onChange={changeHandler}
-          id="numberInput"
+          required
         />
-      </label>
-      <button type="submit" disabled={!name.length || !number.length}>
-        Add contact
-      </button>
-    </form>
-  );
-}
+      </LabelForm>
 
-ContactForm.propTypes = {
-  addContact: PropTypes.func.isRequired,
+      <Button type="submit">Add contact</Button>
+    </Form>
+  );
 };
+
 export default ContactForm;
