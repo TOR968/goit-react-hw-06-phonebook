@@ -5,7 +5,7 @@ const FilterInput = styled.input`
   margin: 10px auto;
   padding: 5px;
   font-size: 18px;
-  border-radius: 15px;
+  border-radius: 10px;
   outline: none;
 
   &::placeholder {
